@@ -24,6 +24,11 @@ struct WeatherHandler {
         requestWeather(urlString: url)
     }
     
+    func fetchWeather(lon: String, lat: String) {
+        let url = "\(baseURL)&lat=\(lat)&lon=\(lon)"
+        requestWeather(urlString: url)
+    }
+    
     func requestWeather(urlString: String) {
         
         if let url = URL(string: urlString) {
@@ -37,8 +42,8 @@ struct WeatherHandler {
                 }
                 
                 if let safeData = data {
-                    if let response = self.parseJSON(with: safeData) {
-                        self.delegate?.didFetchWeather(model: response)
+                    if let weather = self.parseJSON(with: safeData) {
+                        self.delegate?.didFetchWeather(model: weather)
                     }
                 }
             }
@@ -54,8 +59,9 @@ struct WeatherHandler {
             let decodedData = try decoder.decode(ResponseData.self, from: data)
             let name = decodedData.name
             let temp = decodedData.main.temp
+            let conditionID = decodedData.weather[0].id
             
-            let model = WeatherModel(cityName: name, temperature: temp)
+            let model = WeatherModel(cityName: name, temperature: temp, id: conditionID)
             return model
             
         } catch {

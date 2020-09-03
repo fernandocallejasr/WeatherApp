@@ -12,6 +12,7 @@ struct ResponseData: Codable {
     
     let name: String
     let main: Main
+    let weather: [Weather]
     
 }
 
@@ -19,6 +20,11 @@ struct Main: Codable {
     let temp: Double
 }
 
+struct Weather: Codable {
+    let id: Int
+}
+
 
 // path city name: name
 // path temp: main.temp
+// path id: weather[0].id
