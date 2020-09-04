@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 protocol WeatherHandlerDelegateProtocol {
     func didFetchWeather(model: WeatherModel)
@@ -17,7 +19,6 @@ struct WeatherHandler {
     var delegate: WeatherHandlerDelegateProtocol?
     
     let baseURL = "https://api.openweathermap.org/data/2.5/weather?appid=7b4f988423ba70cf3e917dc0e21a1421&units=metric"
-    let baseLocationURL = "api.openweathermap.org/data/2.5/weather?appid={your api key}&lat={lat}&lon={lon}"
     
     func fetchWeather(cityName: String) {
         let url = "\(baseURL)&q=\(cityName)".replacingOccurrences(of: " ", with: "%20")
@@ -31,43 +32,26 @@ struct WeatherHandler {
     
     func requestWeather(urlString: String) {
         
-        if let url = URL(string: urlString) {
-        
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { (data, response, error) in
+        Alamofire.request(urlString).responseJSON { (response) in
+            if response.result.isSuccess {
                 
-                if error != nil {
-                    print(error!)
-                    return
-                }
-                
-                if let safeData = data {
-                    if let weather = self.parseJSON(with: safeData) {
-                        self.delegate?.didFetchWeather(model: weather)
-                    }
+                let weatherJSON = JSON(response.result.value!)
+                if let weather = self.parseJSON(with: weatherJSON) {
+                    self.delegate?.didFetchWeather(model: weather)
                 }
             }
-            task.resume()
         }
     }
     
-    func parseJSON(with data: Data) -> WeatherModel? {
+    func parseJSON(with json: JSON) -> WeatherModel? {
         
-        let decoder = JSONDecoder()
+        let name = json["name"].stringValue
+        let temp = json["main"]["temp"].doubleValue
+        let weatherID = json["weather"][0]["id"].intValue
         
-        do {
-            let decodedData = try decoder.decode(ResponseData.self, from: data)
-            let name = decodedData.name
-            let temp = decodedData.main.temp
-            let conditionID = decodedData.weather[0].id
-            
-            let model = WeatherModel(cityName: name, temperature: temp, id: conditionID)
-            return model
-            
-        } catch {
-            print(error)
-            return nil
-        }
+        let weather = WeatherModel(cityName: name, temperature: temp, id: weatherID)
+        
+        return weather
                 
     }
     

@@ -29,6 +29,8 @@ class ViewController: UIViewController {
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         locationManager.requestLocation()
+        
+        weatherHandler.fetchWeather(cityName: "London")
     }
 
     @IBAction func currentLocationPressed(_ sender: UIButton) {
