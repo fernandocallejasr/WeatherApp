@@ -129,7 +129,7 @@ extension ViewController: WeatherHandlerDelegateProtocol {
     func didFetchWeather(model: WeatherModel) {
         DispatchQueue.main.async {
             self.cityLabel.text = model.cityName
-            self.temperatureLabel.text = "\(model.temperature) °C"
+            self.temperatureLabel.text = "\(Int(model.temperature)) °C"
             
             if let conditionImage = UIImage(systemName: model.conditionString) {
                 self.weatherConditionImage.image = conditionImage

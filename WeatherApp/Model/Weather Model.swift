@@ -41,7 +41,7 @@ struct WeatherModel {
             return "sun.max"
             
         case 801...804:
-            return "cloud.fill"
+            return "cloud"
         
         default:
             return "thermometer"

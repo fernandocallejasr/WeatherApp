@@ -19,8 +19,14 @@ class CityCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         
         cellView.layer.cornerRadius = cellView.frame.height / 5
-        
+    
         cellView.backgroundColor = UIColor(red: 0.85, green: 0.78, blue: 0.75, alpha: 1.00)
+        
+        cellView.layer.shadowColor = UIColor.black.cgColor
+        cellView.layer.shadowRadius = 4.0
+        cellView.layer.shadowOffset = CGSize(width: 10.2, height: 10.2)
+        cellView.layer.shadowOpacity = 0.4
+        cellView.layer.masksToBounds = true
         
     }
     
