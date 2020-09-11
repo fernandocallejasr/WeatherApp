@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CityCollectionViewCell" translatesAutoresizingMaskIntoConstraints="NO" id="gTV-IL-0wX" customClass="CityCollectionViewCell" customModule="WeatherApp">
+            <rect key="frame" x="0.0" y="0.0" width="385" height="169"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="385" height="169"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lsH-O7-cIz">
+                        <rect key="frame" x="0.0" y="0.0" width="385" height="169"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XtL-AB-Cbk">
+                                <rect key="frame" x="165" y="71.5" width="55" height="26.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="XtL-AB-Cbk" firstAttribute="centerY" secondItem="lsH-O7-cIz" secondAttribute="centerY" id="OGV-FF-rDZ"/>
+                            <constraint firstItem="XtL-AB-Cbk" firstAttribute="centerX" secondItem="lsH-O7-cIz" secondAttribute="centerX" id="m6e-64-pIs"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <color key="tintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="lsH-O7-cIz" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Iee-zk-19h"/>
+                <constraint firstAttribute="trailing" secondItem="lsH-O7-cIz" secondAttribute="trailing" id="NT3-KB-QnM"/>
+                <constraint firstItem="lsH-O7-cIz" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="WsU-Xl-lIf"/>
+                <constraint firstAttribute="bottom" secondItem="lsH-O7-cIz" secondAttribute="bottom" id="uRT-x5-0Yy"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="385" height="169"/>
+            <connections>
+                <outlet property="cellLabel" destination="XtL-AB-Cbk" id="Y7r-hd-YPp"/>
+                <outlet property="cellView" destination="lsH-O7-cIz" id="ZVc-BT-MEt"/>
+            </connections>
+            <point key="canvasLocation" x="115.21739130434783" y="142.96875"/>
+        </collectionViewCell>
+    </objects>
+</document>
