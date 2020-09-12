@@ -41,13 +41,13 @@
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="natural" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="rrM-g2-LWB">
-                                                <rect key="frame" x="60" y="0.0" width="194" height="50"/>
+                                                <rect key="frame" x="60" y="0.0" width="234" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3m-a6-EAF">
-                                                <rect key="frame" x="264" y="0.0" width="50" height="50"/>
+                                                <rect key="frame" x="304" y="0.0" width="50" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="D2Z-xi-CFt"/>
                                                     <constraint firstAttribute="width" constant="50" id="ufz-mp-rYZ"/>
@@ -58,18 +58,6 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="searchPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bp6-DD-NTg"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OqH-Up-ZgK">
-                                                <rect key="frame" x="324" y="0.0" width="30" height="50"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="30" id="2YN-DZ-5eR"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="40"/>
-                                                <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <state key="normal" title="+"/>
-                                                <connections>
-                                                    <action selector="addPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HbB-vq-9uv"/>
                                                 </connections>
                                             </button>
                                         </subviews>

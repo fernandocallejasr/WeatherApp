@@ -65,19 +65,46 @@ class ViewController: UIViewController {
         searchTextField.endEditing(true)
     }
     
+}
+
+//MARK: - Persistent Data Methods
+
+extension ViewController {
     
-    @IBAction func addPressed(_ sender: UIButton) {
+    func saveContext() {
+        do {
+            try context.save()
+        } catch {
+            print("Error saving Core Data context: \(error)")
+        }
+    }
+    
+    func loadCities() {
         
-        let textAlert = UIAlertController(title: "City/Region name required", message: "Type your desired location in the text field, then hit the add button", preferredStyle: .alert)
-        let dismissAction = UIAlertAction(title: "Ok", style: .default) { (action) in
-            self.dismiss(animated: true, completion: nil)
+        let request: NSFetchRequest<City> = City.fetchRequest()
+        
+        do {
+            citiesArray = try context.fetch(request)
+        } catch {
+            print("Error Loading Cities: \(error)")
         }
         
-        textAlert.addAction(dismissAction)
+        cityViewCollection.reloadData()
         
-        if searchTextField.text != "" {
+    }
+    
+    func addCity(withName cityText: String) {
+        
+        var cityString = [String]()
+        
+        if citiesArray.count != 0 {
+            for city in citiesArray {
+                cityString.append(city.cityName!)
+            }
             
-            let cityText = searchTextField.text!
+            if cityString.contains(cityText) {
+                return
+            }
             
             let newCity = City(context: context)
             newCity.cityName = cityText
@@ -86,16 +113,17 @@ class ViewController: UIViewController {
             
             saveContext()
             
-            searchTextField.endEditing(true)
+            cityViewCollection.reloadData()
+        } else {
+            let newCity = City(context: context)
+            newCity.cityName = cityText
+            
+            citiesArray.append(newCity)
+            
+            saveContext()
             
             cityViewCollection.reloadData()
-            
-        } else {
-            
-            present(textAlert, animated: true, completion: nil)
-            
         }
-        
     }
     
 }
@@ -110,9 +138,7 @@ extension ViewController: UITextFieldDelegate {
                 weatherHandler.fetchWeather(cityName: text)
             }
         }
-        
         textField.text = ""
-        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -128,11 +154,23 @@ extension ViewController: WeatherHandlerDelegateProtocol {
     
     func didFetchWeather(model: WeatherModel) {
         DispatchQueue.main.async {
-            self.cityLabel.text = model.cityName
-            self.temperatureLabel.text = "\(Int(model.temperature)) °C"
             
-            if let conditionImage = UIImage(systemName: model.conditionString) {
-                self.weatherConditionImage.image = conditionImage
+            let cityName = model.cityName
+            let temperature = model.temperature
+            
+            if cityName == "" {
+                print("Unnamed City")
+            } else {
+                
+                self.cityLabel.text = cityName
+                self.temperatureLabel.text = "\(Int(temperature)) °C"
+                
+                if let conditionImage = UIImage(systemName: model.conditionString) {
+                    self.weatherConditionImage.image = conditionImage
+                }
+                
+                self.addCity(withName: cityName)
+            
             }
             
         }
@@ -160,36 +198,6 @@ extension ViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error obtaining current location: \(error)")
-    }
-    
-}
-
-//MARK: - Persistent Data Methods
-
-extension ViewController {
-    
-    func saveContext() {
-        do {
-            try context.save()
-            
-            print("Saved context")
-        } catch {
-            print("Error saving Core Data context: \(error)")
-        }
-    }
-    
-    func loadCities() {
-        
-        let request: NSFetchRequest<City> = City.fetchRequest()
-        
-        do {
-            citiesArray = try context.fetch(request)
-        } catch {
-            print("Error Loading Cities: \(error)")
-        }
-        
-        cityViewCollection.reloadData()
-        
     }
     
 }
