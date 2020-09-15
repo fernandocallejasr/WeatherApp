@@ -36,9 +36,7 @@ class ViewController: UIViewController {
         locationManager.requestAlwaysAuthorization()
         locationManager.requestLocation()
         
-        weatherHandler.fetchWeather(cityName: "London")
-        
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        //print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -53,7 +51,9 @@ class ViewController: UIViewController {
         
         loadCities()
         
-        print("Cities Array Size: \(citiesArray.count)")
+        if citiesArray.count != 0 {
+            weatherHandler.fetchWeather(cityName: citiesArray[0].cityName!)
+        }
         
     }
 
@@ -232,7 +232,7 @@ extension  ViewController: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CityCollectionViewCell.identifier, for: indexPath) as! CityCollectionViewCell
         
-        let title = citiesArray.count != 0 ? citiesArray[indexPath.row].cityName : "Add a city"
+        let title = citiesArray.count != 0 ? citiesArray[indexPath.row].cityName : "Add place"
         
         cell.setTitle(with: title!)
         
